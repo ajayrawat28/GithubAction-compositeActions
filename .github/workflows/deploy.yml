@@ -19,9 +19,12 @@ jobs:
       - name: Get code
         uses: actions/checkout@v6
       - name: Load and Cache dependencies
+        id: cache-deps
         uses: ./.github/actions/cached-deps
         with:
           caching: 'false'
+      - name: Output informations
+        run: echo "Caching used ? ${{ steps.cache-deps.outputs.used-cache }}"
       - name: Test code
         id: run-tests
         run: npm run test
